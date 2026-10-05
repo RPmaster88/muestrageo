@@ -1,4 +1,4 @@
- # Clerkbay (demo site)
+ # virtualsecretary.online (demo site)
 
 Static marketing site in **British English (UK)** for a virtual secretary and concierge — diary, letters and appointments, plus restaurant, hotel and travel bookings.
 

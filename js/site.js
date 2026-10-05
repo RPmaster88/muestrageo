@@ -1,14 +1,28 @@
 (function () {
   var header = document.querySelector(".site-header");
   var menuBtn = document.querySelector(".menu-btn");
+  function setMenu(open) {
+    if (!header || !menuBtn) return;
+    header.classList.toggle("is-open", open);
+    menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  }
+
   if (header && menuBtn) {
     menuBtn.addEventListener("click", function () {
-      var open = header.classList.toggle("is-open");
-      menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+      setMenu(!header.classList.contains("is-open"));
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") setMenu(false);
+    });
+    header.querySelectorAll(".site-nav a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        setMenu(false);
+      });
     });
   }
 
-  var STORAGE_KEY = "clerkbay_cookie_consent_v1";
+  var STORAGE_KEY = "virtualsecretary_cookie_consent_v1";
 
   function getConsent() {
     try {
@@ -24,7 +38,7 @@
   }
 
   function loadGoogleTags() {
-    var cfg = window.CLERKBAY_CONFIG || {};
+    var cfg = window.VIRTUALSECRETARY_CONFIG || {};
     if (cfg.googleTagManager && cfg.googleTagManager.enabled && cfg.googleTagManager.containerId) {
       var gtm = cfg.googleTagManager.containerId;
       (function (w, d, s, l, i) {
@@ -94,5 +108,5 @@
     });
   });
 
-  window.CLERKBAY_COOKIES = { reopenBanner: showBanner, getConsent: getConsent };
+  window.VIRTUALSECRETARY_COOKIES = { reopenBanner: showBanner, getConsent: getConsent };
 })();
